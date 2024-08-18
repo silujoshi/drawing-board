@@ -2,16 +2,17 @@ const canvas = document.querySelector("canvas"),
 toolBtns = document.querySelectorAll(".tool"),
 fillColor = document.querySelector("#fill-color"),
 colorBtns = document.querySelectorAll(".colors .option"),
+sizeSlider=document.querySelector('#size-slider'),
 cancelBtns = document.querySelector(".cancelbutton"),
-saveBtn = document.querySelector(".save");
+saveBtn = document.querySelector(".save"),
 ctx= canvas.getContext('2d',{ willReadFrequently: true });
 
 //global variable with default value
 let prevMouseX, prevMouseY,snapshot,
-isDrawing = false,
+brushWidth=5,
 selectedTool="brush",
-brushWidth=2,
-selectedColor = "#000";
+selectedColor = "black",
+isDrawing = false;
 
 window.addEventListener("load",()=>{
     canvas.width = canvas.offsetWidth;
@@ -98,6 +99,10 @@ toolBtns.forEach(btn=>{
         console.log(selectedTool);
 
     })
+});
+
+sizeSlider.addEventListener("change",()=>{
+    brushWidth=sizeSlider.value
 })
 
 colorBtns.forEach(btn=>{
