@@ -79,6 +79,8 @@ const startDraw=(e)=>{
     snapshot = ctx.getImageData(0,0,canvas.width,canvas.height)
    
 }
+let zoomLevel = 1;
+const container= canvas.parentElement;
 const drawing =(e)=>{
     if(!isDrawing)return;
     ctx.putImageData(snapshot,0,0)
@@ -89,6 +91,20 @@ const drawing =(e)=>{
     }
     else if(selectedTool ==="square"){
         drawSquare(e);
+    }
+    else if(selectedTool ==="zoomin"){
+       canvas.style.cursor="zoom-in";
+       zoomLevel+=0.03;
+       canvas.style.transform=`scale(${zoomLevel})`
+    }
+    else if(selectedTool ==="zoomout"){
+       canvas.style.cursor="zoom-out";
+       zoomLevel-=0.03;
+       canvas.style.transform=`scale(${zoomLevel})`
+       if(zoomLevel<=1){
+        canvas.style.tranform = `scale(1)`;
+        container.style.overflow='hidden';
+       }
     }
 }
 toolBtns.forEach(btn=>{
